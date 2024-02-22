@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <!-- <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="atm_debt.html">Current debt</a></li>
+
+        </ol> -->
+        <script>
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+                }
+
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+        </script>
+        <script>
+            let start_date = new Date("2024-01-19T16:26:00");
+
+            console.log(start_date)
+
+            var gavel_amount = 208451176;
+
+            setCookie("start_date", start_date, 365);
+            setCookie("current_debt", gavel_amount, 7);
+            setCookie("start_amount", gavel_amount, 7);
+            setCookie("interest", 0.000248361, 365)
+        </script>
+        <script>
+            // Get current debt amount
+            // var current_debt = getCookie("current_debt")
+            // interest is roughly 0.02145594%
+            // The t is in years
+            let start_amount = getCookie("start_amount");
+            let frequency=1;
+            let change_value = (getCookie("start_amount") * (getCookie("interest")) / (24*60*60*frequency));
+            // A = P(1+r)^t
+
+            // calculate debt based on difference of now to start date on page load
+            let now = Date();
+            let difference = (Date.parse(now) - Date.parse(getCookie("start_date"))) / (1000/frequency);
+            console.log(difference);
+            let current_debt = (difference * parseFloat(change_value)) + parseFloat(getCookie("start_amount"));
+            // document.getElementById("debt_display").innerText = current_debt;
+
+            console.log(current_debt, parseFloat(change_value) * difference)
+            // var debt_display = document.getElementById("debt_display")
+            // replace example text with current debt amount.
+            setInterval(() => {
+                // get values of new interest and total debt
+                let now = Date();
+                let difference = (Date.parse(now) - Date.parse(getCookie("start_date"))) / (1000/frequency);
+                let gain = (parseFloat(change_value) * difference);
+                // add value to debt clock
+                // current_debt = (parseFloat(current_debt) + parseFloat(change_value)).toFixed(2);
+                current_debt = parseFloat(start_amount) + gain;
+
+                document.getElementById("start_amount").innerText = parseFloat(start_amount).toLocaleString("en-US", {style:"currency", currency:"USD"});
+                document.getElementById("gained_debt").innerText = gain.toLocaleString("en-US", {style:"currency", currency:"USD"});
+                document.getElementById("debt_display").innerText = parseFloat(current_debt).toLocaleString("en-US", {style:"currency", currency:"USD"});
+                setCookie("current_debt", current_debt, 7);
+            }, 1000/frequency);
+        </script>
+        <script>
+            if (getCookie("start_date") == "") {
+                console.log("You have not yet triggered the gavel fall, and so no calculations can be made.");
+            }
+            else {
+                console.log("You should be setting the debt_display to the value of", current_debt);
+            }
+        </script>
+    </head>
+    <body>
+        <br><br>
+        <p id="start_amount"></p>
+        <p id="gained_debt"></p>
+        <p id="debt_display"></p>
+
+    </body>
+</html>
