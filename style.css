@@ -1,0 +1,52 @@
+body {
+    background-color: rgb(0, 0, 0);
+    background-image: url("/assets/DEBT\ CLOCK\ Background.png");
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    background-position-x: center;
+    background-position-y: center;
+    /* 1920 X 1080 */
+  }
+
+  
+  h1 {
+    color: rgb(25, 0, 255);
+    margin-left: 20px;
+  }
+p {
+  /* background-color: rgb(255, 255, 255); */
+  font-size: 5em;
+  margin-left: 200px;
+  text-wrap: balance;
+  margin-right:52.5%;
+  /* text-align: center; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #d7c7b5;
+
+  /* color: aqua; */
+  /* background-color: rgb(255, 255, 255); */
+}
+
+#start_amount{
+  /* margin-left: 50px; */
+  /* margin-right: 50px; */
+  margin-top: 185px;
+  margin-bottom: 50px;
+}
+#gained_debt{
+  margin-left: 260px;
+  margin-right: 54.6%;
+  margin-top: 190px;
+  margin-bottom: 50px;
+}
+#debt_display{
+  /* margin-left: 50px; */
+  /* margin-right: 50px; */
+  margin-top: 185px;
+  margin-bottom: 50px;
+}
+/* @font-face {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    src: url(localfile.font-family-file-type);
+    font-weight: bold
+} */
